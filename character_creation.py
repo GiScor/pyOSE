@@ -1,4 +1,5 @@
-from character import Character, CharRace, CharClass, RACE_CLASS_LIMITS
+from character import Character, CharRace, CharClass
+from classesraces import RACE_CLASS_LIMITS
 from tools import roll, clear_screen
 import time
 
@@ -6,12 +7,11 @@ def print_char():
     char = Character('Tizio', 1, CharRace.ELF, CharClass.ROGUE)
     print(char._name)
 
-
 attr_names = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA']
 
-def print_attr(attributes):
-    for i in range(0, 6):
-        print(f"{attr_names[i]}: {attributes[i]:>5}")
+def print_attributes(attributes):
+    for name, value in attributes.items():
+        print(f"{name}: {value:>5}")
     print("")
 
 def get_level():
@@ -61,55 +61,53 @@ def get_class(crace):
             print("Please enter a valid number")
 
 def char_create():
+    character = Character()
     clear_screen()
-    attributes = [0, 0, 0, 0, 0, 0]
-    level = get_level()
-    print(f"You're level {level}")
+    character.set_level(get_level())
+    print(f"You're level {character._level}")
+
     input("[Press ENTER to continue...]")
     clear_screen()
 
-    print("\nRolling attributes...\n")
+    print("\nRolling starting attributes...\n")
     time.sleep(.5)
-    for i in range(0, 6):
-        # print(attr_names[i], end=": ")
-        val = roll(3, 6)
-        attributes[i] = val
-    print_attr(attributes)
+    for name in character.attributes:
+        character.attributes[name] = roll(3, 6)
+    print_attributes(character.attributes)
+
     input("[Press ENTER to continue...]")
     clear_screen()
 
     print("\n\n")
-    print_attr(attributes)
-    crace = get_race()
-    print(crace.value)
+    print_attributes(character.attributes)
+    character.set_race(get_race())
+    print(character._race.value)
     input("[Press ENTER to continue...]")
     clear_screen()
 
-    print(crace.value)
+    print(character._race.value)
     print("\n")
-    print_attr(attributes)
-    cclass = get_class(crace)
-    print(cclass.value)
+    print_attributes(character.attributes)
+    character.set_class(get_class(character._race))
+    print(character._class.value)
     input("[Press ENTER to continue...]")
     clear_screen()
 
-    print(crace.value, end=" ")
-    print(cclass.value)
+    print(character._race.value, end=" ")
+    print(character._class.value)
     print("\n")
-    print_attr(attributes)
-    name: str = input("Choose a name: ")
-    print("Your name is", name)
+    print_attributes(character.attributes)
+    character.set_name(input("Choose a name: "))
+    print("Your name is", character._name)
     clear_screen()
 
-    print(name)
-    print(crace.value, end=" ")
-    print(cclass.value, '\n')
-    print_attr(attributes)
-    character = Character(name, level, crace, cclass, attributes)
+    print(character._name)
+    print(character._race.value, end=" ")
+    print(character._class.value, '\n')
+    print_attributes(character.attributes)
 
     return character
 
 
 if __name__ == '__main__':
     char = char_create()
-    print(char.attributes)
