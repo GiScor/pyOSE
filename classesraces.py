@@ -1,4 +1,5 @@
 from enum import Enum
+from dataclasses import dataclass
 # from character import Character
 
 class CharRace(Enum):
@@ -13,6 +14,35 @@ class CharRace(Enum):
     SVIRFNEBLIN = 'Svirfneblin'
     HUMAN = 'Human'
 
+@dataclass
+class RaceInfo:
+    flavor_text: str
+    attr_modifiers: dict[str, int]
+    min_scores: dict[str, int]
+    lang: list[str]
+    abilities: list[str]            # Will need to create a class for abilities
+                                    # for future integrations
+
+RACE_INFO = [
+    Drow = RaceInfo(
+        flavor_text = "A Drow"
+        attr_modifiers = {'COS': -1, 'DEX': +1}
+        min_scores = {'INT', 9}
+        lang = ['Allineamento', 'Comune', 'Comune delle profondità',
+                'Elfico', 'Gnomico', 'la lingua segreta dei ragni']
+        abilities: list[str]
+    )
+    CharRace.DROW = 'Drow'
+    CharRace.DUERGAR = 'Duergar'
+    CharRace.ELF = 'Elf'
+    CharRace.GNOME = 'Gnome'
+    CharRace.HALFLING = 'Halfling'
+    CharRace.HALFELF = 'Half Elf'
+    CharRace.HALFORC = 'Half Orc'
+    CharRace.DWARF = 'Dwarf'
+    CharRace.SVIRFNEBLIN = 'Svirfneblin'
+    CharRace.HUMAN = 'Human'
+    ]
 class CharClass(Enum):
     ACROBAT = 'Acrobat'
     ASSASSIN = 'Assassin'
