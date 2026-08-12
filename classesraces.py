@@ -24,160 +24,161 @@ class RaceInfo:
     weapons_restrictions: list[str] # for future integrations
     armor_restrictions: list[str]
 
-Drow_info = RaceInfo(
-    "A Drow",
-    {'CON': -1, 'DEX': +1},
-    {'INT', 9},
-    ['Allineamento', 'Comune', 'Comune delle profondità',
-     'Elfico', 'Gnomico', 'la lingua segreta dei ragni'],
-    ["Immunita' alla Paralisi dei Ghoul",
-     "Individuazione di Porte Segrete",
-     "Infravisione",
-     "Magia Innata",
-     "Origliare alle Porte",
-     "Sensibilita' alla luce"],
-    None,
-    None
-)
+race_info = {
+    CharRace.DROW: RaceInfo(
+        "A Drow",
+        {'CON': -1, 'DEX': +1},
+        {'INT', 9},
+        ['Allineamento', 'Comune', 'Comune delle profondità',
+         'Elfico', 'Gnomico', 'la lingua segreta dei ragni'],
+        ["Immunita' alla Paralisi dei Ghoul",
+         "Individuazione di Porte Segrete",
+         "Infravisione",
+         "Magia Innata",
+         "Origliare alle Porte",
+         "Sensibilita' alla luce"],
+        None,
+        None
+    ),
 
-Duergar_info = RaceInfo(
-    "A Duergar",
-    {'CHA': -1, 'CON': +1},
-    {'CON': 9, 'INT': 9},
-    ['Allineamento', 'Coboldo', 'Comune', 'Comune delle profondità',
-     'Gnomico', 'Goblin', 'Nanico'],
-    ["Furtivita'",
-     "Individuazione di Passaggi e Costruzioni",
-     "Individuazione di Trappone nelle Stanze",
-     "Infravisoine",
-     "Origliare alle Porte",
-     "Resilienza",
-     "Sensibilita alla luce"],
-    ["Taglia piccola", "Taglia normale"],
-    None
-)
+    CharRace.DUERGAR: RaceInfo(
+        "A Duergar",
+        {'CHA': -1, 'CON': +1},
+        {'CON': 9, 'INT': 9},
+        ['Allineamento', 'Coboldo', 'Comune', 'Comune delle profondità',
+         'Gnomico', 'Goblin', 'Nanico'],
+        ["Furtivita'",
+         "Individuazione di Passaggi e Costruzioni",
+         "Individuazione di Trappone nelle Stanze",
+         "Infravisoine",
+         "Origliare alle Porte",
+         "Resilienza",
+         "Sensibilita alla luce"],
+        ["Taglia piccola", "Taglia normale"],
+        None
+    ),
 
-Elf_info = RaceInfo(
-    "An Elf",
-    {'CON': -1, 'DEX': +1},
-    {'INT': 9},
-    ['Allineamento', 'Comune', 'Elfico', 'Gnoll', 'Hobgoblin', 'Orchesco'],
-    ["Immunita' alla Paralisi dei Ghoul",
-     "Individuazione delle Porte Segrete",
-     "Infravisione",
-     "Origliare alle Porte"],
-    None,
-    None
-)
+    CharRace.ELF: RaceInfo(
+        "An Elf",
+        {'CON': -1, 'DEX': +1},
+        {'INT': 9},
+        ['Allineamento', 'Comune', 'Elfico', 'Gnoll', 'Hobgoblin', 'Orchesco'],
+        ["Immunita' alla Paralisi dei Ghoul",
+         "Individuazione delle Porte Segrete",
+         "Infravisione",
+         "Origliare alle Porte"],
+        None,
+        None
+    ),
 
-Gnome_info = RaceInfo(
-    "A Gnome",
-    None,
-    {'CON': 9, 'INT': 9},
-    ['Allineamento', 'Coboldo', 'Comune', 'Gnomico',
-     'Nanico', "la lingua segreta dei mammiferi scavatori"],
-    ["Bonus Difensivo",
-     "Individuazione di Passaggi e Costruzioni",
-     "Infravisione",
-     "Origliare alle Porte",
-     "Parlare con i Mammiferi Scavatori",
-     "Resistenza alla Magia"], # Implementare tabella resistenza alla magia
-    ["Appropriate alla statura"],
-    ["Appropriate alla statura"]
-)
+    CharRace.GNOME: RaceInfo(
+        "A Gnome",
+        None,
+        {'CON': 9, 'INT': 9},
+        ['Allineamento', 'Coboldo', 'Comune', 'Gnomico',
+         'Nanico', "la lingua segreta dei mammiferi scavatori"],
+        ["Bonus Difensivo",
+         "Individuazione di Passaggi e Costruzioni",
+         "Infravisione",
+         "Origliare alle Porte",
+         "Parlare con i Mammiferi Scavatori",
+         "Resistenza alla Magia"], # Implementare tabella resistenza alla magia
+        ["Appropriate alla statura"],
+        ["Appropriate alla statura"]
+    ),
 
-Halfling_info = RaceInfo(
-    "An Halfling",
-    {'DEX': +1, 'STR': -1},
-    {'CON': 9, 'DEX': 9},
-    ['Allineamento', 'Comune', 'Halfling'],
-    ["Bonus agli Attacchi a Distanza",
-     "Bonus difensivo",
-     "Bonus all'Iniziativa (Regola Opzionale)",
-     "Origliare alle Porte",
-     "Resilienza"],
-    ["Appropriate alla statura"],
-    ["Appropriate alla statura"]
-)
+    CharRace.HALFLING: RaceInfo(
+        "An Halfling",
+        {'DEX': +1, 'STR': -1},
+        {'CON': 9, 'DEX': 9},
+        ['Allineamento', 'Comune', 'Halfling'],
+        ["Bonus agli Attacchi a Distanza",
+         "Bonus difensivo",
+         "Bonus all'Iniziativa (Regola Opzionale)",
+         "Origliare alle Porte",
+         "Resilienza"],
+        ["Appropriate alla statura"],
+        ["Appropriate alla statura"]
+    ),
 
-Halfelf_info = RaceInfo(
-    "An Half Elf",
-    None,
-    {'CHA': 9, 'CON': 9},
-    ['Allineamento', 'Comune', 'Elfico'],
-    ["Individuazione di Porte Segrete",
-     "Infravisione"],
-     None,
-     None
-)
+    CharRace.HALFELF: RaceInfo(
+        "An Half Elf",
+        None,
+        {'CHA': 9, 'CON': 9},
+        ['Allineamento', 'Comune', 'Elfico'],
+        ["Individuazione di Porte Segrete",
+         "Infravisione"],
+        None,
+        None
+    ),
 
-Halforc_info = RaceInfo(
-    "An Half Orc",
-    {'CHA': -2, 'CON': +1, 'STR': +1},
-    None,
-    ['Allineamento', 'Comune', 'Orchesco'],
-    ["Infravisione"],
-     None,
-     None
-)
+    CharRace.HALFORC: RaceInfo(
+        "An Half Orc",
+        {'CHA': -2, 'CON': +1, 'STR': +1},
+        None,
+        ['Allineamento', 'Comune', 'Orchesco'],
+        ["Infravisione"],
+        None,
+        None
+    ),
 
-Dwarf_info = RaceInfo(
-    "A Dwarf",
-    {'CHA': -1, 'CON': +1},
-    {'CON': 9},
-    ['Allineamento', 'Coboldo', 'Comune', 'Gnomico', 'Goblin', 'Nanico'],
-    ["Individuazione di Passaggi e Costruzioni",
-     "Individuazione di Trappole nelle Stanze",
-     "Infravisione",
-     "Origliare alle Porte",
-     "Resilienza"], # Tabella Resilienza
-    ["Appropriate alla statura"],
-    ["Appropriate alla statura"]
-)
+    CharRace.DWARF: RaceInfo(
+        "A Dwarf",
+        {'CHA': -1, 'CON': +1},
+        {'CON': 9},
+        ['Allineamento', 'Coboldo', 'Comune', 'Gnomico', 'Goblin', 'Nanico'],
+        ["Individuazione di Passaggi e Costruzioni",
+         "Individuazione di Trappole nelle Stanze",
+         "Infravisione",
+         "Origliare alle Porte",
+         "Resilienza"], # Tabella Resilienza
+        ["Appropriate alla statura"],
+        ["Appropriate alla statura"]
+    ),
 
-Svirfneblin_info = RaceInfo(
-    "A Svirfneblin",
-    None,
-    {'CON': 9},
-    ['Allineamento', 'Coboldo', 'Comune',
-     'Comune delle profondità', 'Gnomico',
-     'Nanico', 'la lingua degli elementali della terra'],
-    ["Bonus Difensivo",
-     "Confondersi con la Roccia",
-     "Individuazione di Passaggi e Costruzioni",
-     "Infravisione",
-     "Origliare alle Porte",
-     "Parlare con gli Elementali della Terra",
-     "Resistenza alle Illusione",
-     "Sensibilita' alla Luce"],
-    ["Appropriate alla statura"],
-    ["Appropriate alla statura"]
-)
+    CharRace.SVIRFNEBLIN: RaceInfo(
+        "A Svirfneblin",
+        None,
+        {'CON': 9},
+        ['Allineamento', 'Coboldo', 'Comune',
+         'Comune delle profondità', 'Gnomico',
+         'Nanico', 'la lingua degli elementali della terra'],
+        ["Bonus Difensivo",
+         "Confondersi con la Roccia",
+         "Individuazione di Passaggi e Costruzioni",
+         "Infravisione",
+         "Origliare alle Porte",
+         "Parlare con gli Elementali della Terra",
+         "Resistenza alle Illusione",
+         "Sensibilita' alla Luce"],
+        ["Appropriate alla statura"],
+        ["Appropriate alla statura"]
+    ),
 
-Human_info = RaceInfo(
-    "A Human",
-    None,
-    None,
-    ['Allineamento', 'Comune'],
-    None,
-    None,
-    None
-)
+    CharRace.HUMAN: RaceInfo(
+        "A Human",
+        None,
+        None,
+        ['Allineamento', 'Comune'],
+        None,
+        None,
+        None
+    )
+}
 
 # REGOLA OPZIONALE SE SI ELIMINANO RESTRIZIONI DI LIVELLO E CLASSE PER RAZZE
-# Human_info = RaceInfo(
+    #CharRace.HUMAN: RaceInfo(
     # "A Human",
     # {'CHA': +1, 'CON': +1},
     # None,
     # ['Allineamento', 'Comune'],
     # ["Attitudine al Comando",
-     # "Benedetto",
-     # "Risolutezza"],
+    # "Benedetto",
+    # "Risolutezza"],
     # None,
     # None
-# )
-RACE_INFO = [
-]
+    # )
+
 class CharClass(Enum):
     ACROBAT = 'Acrobat'
     ASSASSIN = 'Assassin'
@@ -309,94 +310,94 @@ RACE_CLASS_LIMITS = {
         CharClass.PALADIN : 0,
         CharClass.RANGER : 0
     },
-    CharRace.HALFLING : {
-        CharClass.ACROBAT : 0,
-        CharClass.ASSASSIN : 0,
-        CharClass.BARBARIAN : 0,
-        CharClass.BARD : 0,
-        CharClass.KNIGHT : 0,
-        CharClass.CLERIC : 0,
-        CharClass.DRUID : 6,
-        CharClass.WARRIOR : 6,
-        CharClass.ILLUSIONIST : 0,
-        CharClass.ROGUE : 8,
-        CharClass.MAGICUSER : 0,
-        CharClass.PALADIN : 0,
-        CharClass.RANGER : 0
-    },
-    CharRace.HALFELF : {
-        CharClass.ACROBAT : 12,
-        CharClass.ASSASSIN : 11,
-        CharClass.BARBARIAN : 0,
-        CharClass.BARD : 12,
-        CharClass.KNIGHT : 12,
-        CharClass.CLERIC : 5,
-        CharClass.DRUID : 12,
-        CharClass.WARRIOR : 8,
-        CharClass.ILLUSIONIST : 0,
-        CharClass.ROGUE : 12,
-        CharClass.MAGICUSER : 8,
-        CharClass.PALADIN : 12,
-        CharClass.RANGER : 8
-    },
-    CharRace.HALFORC : {
-        CharClass.ACROBAT : 8,
-        CharClass.ASSASSIN : 8,
-        CharClass.BARBARIAN : 0,
-        CharClass.BARD : 0,
-        CharClass.KNIGHT : 0,
-        CharClass.CLERIC : 4,
-        CharClass.DRUID : 0,
-        CharClass.WARRIOR : 10,
-        CharClass.ILLUSIONIST : 0,
-        CharClass.ROGUE : 8,
-        CharClass.MAGICUSER : 0,
-        CharClass.PALADIN : 0,
-        CharClass.RANGER : 0
-    },
-    CharRace.DWARF : {
-        CharClass.ACROBAT : 0,
-        CharClass.ASSASSIN : 9,
-        CharClass.BARBARIAN : 0,
-        CharClass.BARD : 0,
-        CharClass.KNIGHT : 0,
-        CharClass.CLERIC : 8,
-        CharClass.DRUID : 0,
-        CharClass.WARRIOR : 10,
-        CharClass.ILLUSIONIST : 0,
-        CharClass.ROGUE : 9,
-        CharClass.MAGICUSER : 0,
-        CharClass.PALADIN : 0,
-        CharClass.RANGER : 0
-    },
-    CharRace.SVIRFNEBLIN : {
-        CharClass.ACROBAT : 0,
-        CharClass.ASSASSIN : 8,
-        CharClass.BARBARIAN : 0,
-        CharClass.BARD : 0,
-        CharClass.KNIGHT : 0,
-        CharClass.CLERIC : 7,
-        CharClass.DRUID : 0,
-        CharClass.WARRIOR : 6,
-        CharClass.ILLUSIONIST : 7,
-        CharClass.ROGUE : 8,
-        CharClass.MAGICUSER : 0,
-        CharClass.PALADIN : 0,
-        CharClass.RANGER : 0
-    },
-    CharRace.HUMAN : {
-        CharClass.ACROBAT : None,
-        CharClass.ASSASSIN : None,
-        CharClass.BARBARIAN : None,
-        CharClass.BARD : None,
-        CharClass.KNIGHT : None,
-        CharClass.CLERIC : None,
-        CharClass.DRUID : None,
-        CharClass.WARRIOR : None,
-        CharClass.ILLUSIONIST : None,
-        CharClass.ROGUE : None,
-        CharClass.MAGICUSER : None,
-        CharClass.PALADIN : None,
-        CharClass.RANGER : None
-    }
+CharRace.HALFLING : {
+    CharClass.ACROBAT : 0,
+    CharClass.ASSASSIN : 0,
+    CharClass.BARBARIAN : 0,
+    CharClass.BARD : 0,
+    CharClass.KNIGHT : 0,
+    CharClass.CLERIC : 0,
+    CharClass.DRUID : 6,
+    CharClass.WARRIOR : 6,
+    CharClass.ILLUSIONIST : 0,
+    CharClass.ROGUE : 8,
+    CharClass.MAGICUSER : 0,
+    CharClass.PALADIN : 0,
+    CharClass.RANGER : 0
+},
+CharRace.HALFELF : {
+    CharClass.ACROBAT : 12,
+    CharClass.ASSASSIN : 11,
+    CharClass.BARBARIAN : 0,
+    CharClass.BARD : 12,
+    CharClass.KNIGHT : 12,
+    CharClass.CLERIC : 5,
+    CharClass.DRUID : 12,
+    CharClass.WARRIOR : 8,
+    CharClass.ILLUSIONIST : 0,
+    CharClass.ROGUE : 12,
+    CharClass.MAGICUSER : 8,
+    CharClass.PALADIN : 12,
+    CharClass.RANGER : 8
+},
+CharRace.HALFORC : {
+    CharClass.ACROBAT : 8,
+    CharClass.ASSASSIN : 8,
+    CharClass.BARBARIAN : 0,
+    CharClass.BARD : 0,
+    CharClass.KNIGHT : 0,
+    CharClass.CLERIC : 4,
+    CharClass.DRUID : 0,
+    CharClass.WARRIOR : 10,
+    CharClass.ILLUSIONIST : 0,
+    CharClass.ROGUE : 8,
+    CharClass.MAGICUSER : 0,
+    CharClass.PALADIN : 0,
+    CharClass.RANGER : 0
+},
+CharRace.DWARF : {
+    CharClass.ACROBAT : 0,
+    CharClass.ASSASSIN : 9,
+    CharClass.BARBARIAN : 0,
+    CharClass.BARD : 0,
+    CharClass.KNIGHT : 0,
+    CharClass.CLERIC : 8,
+    CharClass.DRUID : 0,
+    CharClass.WARRIOR : 10,
+    CharClass.ILLUSIONIST : 0,
+    CharClass.ROGUE : 9,
+    CharClass.MAGICUSER : 0,
+    CharClass.PALADIN : 0,
+    CharClass.RANGER : 0
+},
+CharRace.SVIRFNEBLIN : {
+    CharClass.ACROBAT : 0,
+    CharClass.ASSASSIN : 8,
+    CharClass.BARBARIAN : 0,
+    CharClass.BARD : 0,
+    CharClass.KNIGHT : 0,
+    CharClass.CLERIC : 7,
+    CharClass.DRUID : 0,
+    CharClass.WARRIOR : 6,
+    CharClass.ILLUSIONIST : 7,
+    CharClass.ROGUE : 8,
+    CharClass.MAGICUSER : 0,
+    CharClass.PALADIN : 0,
+    CharClass.RANGER : 0
+},
+CharRace.HUMAN : {
+    CharClass.ACROBAT : None,
+    CharClass.ASSASSIN : None,
+    CharClass.BARBARIAN : None,
+    CharClass.BARD : None,
+    CharClass.KNIGHT : None,
+    CharClass.CLERIC : None,
+    CharClass.DRUID : None,
+    CharClass.WARRIOR : None,
+    CharClass.ILLUSIONIST : None,
+    CharClass.ROGUE : None,
+    CharClass.MAGICUSER : None,
+    CharClass.PALADIN : None,
+    CharClass.RANGER : None
+}
 }
