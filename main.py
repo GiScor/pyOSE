@@ -17,34 +17,44 @@ class CharacterCreation(Screen):
         yield Button("Back",id='pop')
         with Horizontal():
             with Vertical(id="left-panel"):
-                # yield attribute_table
                 yield Static("attributes")
             with Vertical(id="right-panel"):
                 yield race_selector
                 # yield class_selector
         # yield name_input
 
+    def on_mount(self) -> None:
+        self.query_one("#left-panel").styles.width = "30%"
+
 class SelectorDescriptor(Widget):
     def __init__(self, options: list):
         super().__init__()
         self.options = options
-        self.description_label = Label("Placeholder")
+        self.flavor_label = Label("Placeholder")
+        self.modifiers_label = Label("Placeholder")
+        self.requirements_label = Label("Placeholder")
 
     def compose(self) -> ComposeResult:
         with Horizontal():
             with Vertical(id="selector"):
                     yield OptionList(*self.options)
             with Vertical(id="description"):
-                yield self.description_label
-                # yield Label("Description placeholder")
+                yield self.flavor_label
+                yield self.modifiers_label
+                yield self.requirements_label
+
     @on(OptionList.OptionHighlighted)
     async def on_option_highlighted(self, event:
                                     OptionList.OptionHighlighted):
         race_value = event.option.prompt
         race = CharRace(race_value)
         if race in race_info:
-            description = race_info[race].flavor_text
-            self.description_label.update(description)
+            flavor = race_info[race].flavor_text
+            modifiers = str(race_info[race].attr_modifiers)
+            requirements = str(race_info[race].min_scores)
+            self.flavor_label.update(flavor)
+            self.modifiers_label.update("Modifiers:" + modifiers)
+            self.requirements_label.update("Requirements:" + requirements)
 
 
 class pyOSE(App):
