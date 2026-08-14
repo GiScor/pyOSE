@@ -2,6 +2,7 @@
 # from tools import roll
 from classesraces import CharRace, CharClass
 from checks import classRestriction
+from tools import roll
 
 attrIndex = [
     'Str',
@@ -16,19 +17,11 @@ class Character:
 
     def __init__(self, name="", level=1,
                  charclass=None,
-                 charrace=None,
-                 attr=None):
+                 charrace=None):
         self._name = name
         self._level = level
         self._class = charclass
         self._race = self.set_race(charrace)
-        # self.STR = 0
-        # self.DEX = 0
-        # self.CON = 0
-        # self.INT = 0
-        # self.WIS = 0
-        # self.CHA = 0
-        self.attributes = attr
         self.attributes = {
             'STR': 0, 'DEX': 0, 'CON': 0,
             'INT': 0, 'WIS': 0, 'CHA': 0
@@ -53,6 +46,10 @@ class Character:
     def set_attr(self, attributes: list):
         for i, name in enumerate(self.attributes):
             self.attributes[name] = attributes[i]
+
+    def gen_attr(self):
+        for i, name in enumerate(self.attributes):
+            self.attributes[name] = roll(3, 6)
 
     @property
     def STR(self):
@@ -122,4 +119,6 @@ if __name__ == '__main__':
     tizio.set_attr([10, 9, 8, 7, 6, 5])
     print(tizio.attributes)
     tizio.CHA = 1
+    print(tizio.attributes)
+    tizio.gen_attr()
     print(tizio.attributes)
