@@ -28,7 +28,7 @@ race_info = {
     CharRace.DROW: RaceInfo(
         "A Drow",
         {'CON': -1, 'DEX': +1},
-        {'INT', 9},
+        {'INT': 9},
         ['Allineamento', 'Comune', 'Comune delle profondità',
          'Elfico', 'Gnomico', 'la lingua segreta dei ragni'],
         ["Immunita' alla Paralisi dei Ghoul",

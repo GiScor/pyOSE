@@ -21,13 +21,13 @@ races = [race.value for race in CharRace]
 
 class CharacterCreation(Screen):
     def compose(self) -> ComposeResult:
-        race_selector = SelectorDescriptor(races)
+        race_selector = SelectorDescriptor(races, id='select-race')
         yield Static(" Create your advenutrer! ")
         yield Button("Back",id='pop')
         with Horizontal():
             with Vertical(id="left-panel"):
                 # yield Static("attributes")
-                yield AttributeTable()
+                yield AttributeTable(id='attr-table')
             with Vertical(id="right-panel"):
                 yield race_selector
                 # yield class_selector
@@ -40,36 +40,59 @@ class CharacterCreation(Screen):
         self.app.character.set_race(message.race)
         self.query_one(AttributeTable).update_attributes(message.race)
 
+    @on(Button.Pressed, "#reroll")
+    def reroll(self):
+        self.query_one(AttributeTable).reroll()
+
+
 
 class AttributeTable(Widget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, id=None):
+        super().__init__(id=id)
         self.attributes = {}
         self.temp_attributes = {}
+        self.restrictions = {}
+        self.race = None
 
     def compose(self) -> ComposeResult:
         with Vertical():
             yield DataTable()
+            yield Button("Reroll", id='reroll')
 
-    def on_mount(self) -> None:
+    def reroll(self):
+        self.app.character.gen_attr()
         self.attributes = self.app.character.attributes
-        self.temp_attributes = {
-            name: (base, 0)
-            for name, base in self.attributes.items()
-        }
-        self.refresh_table()
 
-    def update_attributes(self, race):
-        self.attributes = self.app.character.attributes
-        modifiers = race_info[race].attr_modifiers or {}
-        # if race in race_info:
-            # modifiers = race_info[race].attr_modifiers
-        # else:
-            # modifiers = None
+        modifiers = (
+            race_info[self.race].attr_modifiers or {}
+            if self.race is not None
+            else {}
+        )
+
         self.temp_attributes = {
             name: (base, modifiers.get(name, 0))
             for name, base in self.attributes.items()
         }
+
+        self.refresh_table()
+
+    def on_mount(self) -> None:
+        self.attributes = self.app.character.attributes
+        self.refresh_table()
+
+
+    def update_attributes(self, race):
+        self.race = race
+        self.attributes = self.app.character.attributes
+        self.restrictions = race_info[race].min_scores or {}
+
+        modifiers = race_info[race].attr_modifiers or {}
+
+        self.temp_attributes = {
+            name: (base, modifiers.get(name, 0))
+            for name, base in self.attributes.items()
+        }
+
         self.refresh_table()
 
     def refresh_table(self) -> None:
@@ -78,25 +101,32 @@ class AttributeTable(Widget):
         table.add_columns("ATTR", "VALUE", "")
         rows = [
             (name,
-             f"{base + modifier}",
+             self.color_attr(name, base, modifier, self.restrictions),
              f"[{modifier:+}]" if modifier else None)
             for name, (base, modifier) in self.temp_attributes.items()
         ]
         table.add_rows(rows)
 
+    def color_attr(self, name, base, modifier, restrictions):
+        value = base + modifier
+        req = restrictions.get(name)
+        if req is not None and value < req:
+            return f"[red]{value}[/red]"
+        return str(value)
+
 
 class SelectorDescriptor(Widget):
-    def __init__(self, options: list):
-        super().__init__()
+    def __init__(self, options: list, id=None):
+        super().__init__(id=id)
         self.options = options
-        self.flavor_label = Label("Placeholder")
+        self.flavor_label = Label("Placeholder", id='race-text')
         self.modifiers_label = Label("Placeholder")
         self.requirements_label = Label("Placeholder")
 
     def compose(self) -> ComposeResult:
         with Horizontal():
             with Vertical(id="selector"):
-                    yield OptionList(*self.options)
+                    yield OptionList(*self.options, id='options')
             with Vertical(id="description"):
                 yield self.flavor_label
                 yield self.modifiers_label
@@ -118,11 +148,12 @@ class SelectorDescriptor(Widget):
             requirements = str(race_info[race].min_scores)
             self.flavor_label.update(flavor)
             self.modifiers_label.update("Modifiers:" + modifiers)
-            self.requirements_label.update("Requirements:" + requirements)
+            self.requirements_label.update("Requirements:\n" + requirements)
         self.post_message(self.RaceSelected(race))
 
 
 class pyOSE(App):
+    CSS_PATH = "main.tcss"
     BINDINGS = [
         Binding("ctrl+x", "quit", "Quit"),
     ]
